@@ -1,7 +1,7 @@
 package process
 
 import (
-	"server/model"
+	"server/server/model"
 	"strconv"
 )
 
@@ -14,6 +14,7 @@ func ProcessView(c *(model.Counters), data string, key string) error {
 		c.Click = 0
 	}
 	c.View++
+	//value will be like views: 100, clicks: 4
 	value := " view: " + strconv.Itoa(c.View) + " click: " + strconv.Itoa(c.Click)
 	model.MapCounter[key] = value
 

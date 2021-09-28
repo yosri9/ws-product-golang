@@ -1,7 +1,7 @@
 package process
 
 import (
-	"server/model"
+	"server/server/model"
 )
 
 func ProcessClick(c *(model.Counters), data string) error {
