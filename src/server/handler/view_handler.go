@@ -25,27 +25,27 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		model.SportCounter.Time = time
 		model.CurrentCounter = &(model.SportCounter)
 		process.ProcessView(&(model.SportCounter), data, key)
-		controller.CountCreateOrUpdate(model.CurrentCounter)
+		controller.AppendToCountersList(model.CurrentCounter)
 		fmt.Fprint(w, string(key), string(value))
 
 	case "entertainment":
 		model.EntertainmentCounter.Time = time
 		model.CurrentCounter = &(model.EntertainmentCounter)
 		process.ProcessView(&model.EntertainmentCounter, data, key)
-		controller.CountCreateOrUpdate(model.CurrentCounter)
+		controller.AppendToCountersList(model.CurrentCounter)
 		fmt.Fprint(w, string(key), string(value))
 
 	case "business":
 		model.BusinessCounter.Time = time
 		model.CurrentCounter = &(model.BusinessCounter)
 		process.ProcessView(&(model.BusinessCounter), data, key)
-		controller.CountCreateOrUpdate(model.CurrentCounter)
+		controller.AppendToCountersList(model.CurrentCounter)
 		fmt.Fprint(w, string(key), string(value))
 
 	case "education":
 		model.EducationCounter.Time = time
 		model.CurrentCounter = &(model.EducationCounter)
-		controller.CountCreateOrUpdate(model.CurrentCounter)
+		controller.AppendToCountersList(model.CurrentCounter)
 		process.ProcessView(&(model.EducationCounter), data, key)
 		fmt.Fprint(w, string(key), string(value))
 	}

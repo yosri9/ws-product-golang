@@ -1,10 +1,12 @@
 package controller
 
 import (
-	"math/rand"
 	"server/server/database/query"
 	"server/server/model"
-	"time"
+)
+
+var (
+	counters []model.Counter
 )
 
 func countTracking(event string, time string) string {
@@ -13,7 +15,6 @@ func countTracking(event string, time string) string {
 }
 
 func CountCreateOrUpdate(c *model.Counter) {
-	time.Sleep(time.Duration(rand.Int31n(50)) * time.Millisecond)
 	if query.Exist(c) {
 		query.Update(c)
 	} else {
@@ -38,6 +39,17 @@ func isAllowed() bool {
 	return true
 }
 
-func uploadCounters() error {
+func UploadCounters() error {
+	for _, counter := range counters {
+		CountCreateOrUpdate(&counter)
+	}
+	// free counter list from value every 5 seconds
+	counters = counters[:0]
+
 	return nil
+}
+
+func AppendToCountersList(c *model.Counter) {
+	counters = append(counters, *c)
+
 }
