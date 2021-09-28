@@ -18,6 +18,8 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	key := data + ": " + time
 	value := model.MapCounter[key]
 
+	//update or call to  counter depending on the event name
+
 	switch data {
 	case "sports":
 		model.SportCounter.Time = time
@@ -30,28 +32,28 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		model.EntertainmentCounter.Time = time
 		model.CurrentCounter = &(model.EntertainmentCounter)
 		process.ProcessView(&model.EntertainmentCounter, data, key)
+		controller.CountCreateOrUpdate(model.CurrentCounter)
 		fmt.Fprint(w, string(key), string(value))
 
 	case "business":
 		model.BusinessCounter.Time = time
 		model.CurrentCounter = &(model.BusinessCounter)
 		process.ProcessView(&(model.BusinessCounter), data, key)
+		controller.CountCreateOrUpdate(model.CurrentCounter)
 		fmt.Fprint(w, string(key), string(value))
 
 	case "education":
 		model.EducationCounter.Time = time
 		model.CurrentCounter = &(model.EducationCounter)
+		controller.CountCreateOrUpdate(model.CurrentCounter)
 		process.ProcessView(&(model.EducationCounter), data, key)
 		fmt.Fprint(w, string(key), string(value))
 	}
+
 	// simulate random click call
 	if rand.Intn(100) < 50 {
 		process.ProcessClick(model.CurrentCounter, data)
 	}
-
-	//c.Lock()
-	//c.view++
-	//c.Unlock()
 
 	err := process.ProcessRequest(r)
 	if err != nil {

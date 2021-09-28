@@ -12,7 +12,7 @@ func countTracking(event string, time string) string {
 	return model.MapCounter[key]
 }
 
-func CountCreateOrUpdate(c *model.Counters) {
+func CountCreateOrUpdate(c *model.Counter) {
 	time.Sleep(time.Duration(rand.Int31n(50)) * time.Millisecond)
 	if query.Exist(c) {
 		query.Update(c)

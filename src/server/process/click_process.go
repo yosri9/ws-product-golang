@@ -4,7 +4,7 @@ import (
 	"server/server/model"
 )
 
-func ProcessClick(c *(model.Counters), data string) error {
+func ProcessClick(c *(model.Counter), data string) error {
 	c.Lock()
 	c.Click++
 	c.Unlock()

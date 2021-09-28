@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func ProcessView(c *(model.Counters), data string, key string) error {
+func ProcessView(c *(model.Counter), data string, key string) error {
 	c.Lock()
 	_, currentTimeIsInMap := model.MapCounter[key]
 
