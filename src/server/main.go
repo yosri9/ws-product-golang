@@ -6,7 +6,6 @@ import (
 	"server/server/database/table"
 	"server/server/model"
 	"server/server/route"
-	"time"
 )
 
 func main() {
@@ -14,20 +13,9 @@ func main() {
 
 	go table.CreateCounterTable()
 	go query.GetAll()
-	go uploadCountersEvery5Sec()
-
+	go controller.UploadCountersEvery5Sec()
 	route.RouteHandler()
 
-}
+	//route.RouteHandler()
 
-func uploadCountersEvery5Sec() {
-
-	uptimeTicker := time.NewTicker(5 * time.Second)
-
-	for {
-		select {
-		case <-uptimeTicker.C:
-			controller.UploadCounters()
-		}
-	}
 }

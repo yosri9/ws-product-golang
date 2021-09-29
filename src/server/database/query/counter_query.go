@@ -32,8 +32,6 @@ func Exist(c *model.Counter) bool {
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
 	}
-	print(dbCounters.Next())
-
 	return dbCounters.Next()
 }
 
@@ -78,7 +76,6 @@ func GetAll() []model.Counter {
 			panic(err.Error())
 		}
 		counters = append(counters, counter)
-		print(len(counters))
 
 	}
 

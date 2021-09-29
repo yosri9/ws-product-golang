@@ -3,6 +3,7 @@ package controller
 import (
 	"server/server/database/query"
 	"server/server/model"
+	"time"
 )
 
 var (
@@ -52,4 +53,16 @@ func UploadCounters() error {
 func AppendToCountersList(c *model.Counter) {
 	counters = append(counters, *c)
 
+}
+
+func UploadCountersEvery5Sec() {
+
+	uptimeTicker := time.NewTicker(5 * time.Second)
+
+	for {
+		select {
+		case <-uptimeTicker.C:
+			UploadCounters()
+		}
+	}
 }
