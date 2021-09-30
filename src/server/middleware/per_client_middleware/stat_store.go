@@ -1,4 +1,4 @@
-package middleware
+package per_client_middleware
 
 import (
 	"github.com/sethvargo/go-limiter"

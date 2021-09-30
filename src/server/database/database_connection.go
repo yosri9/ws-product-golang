@@ -3,15 +3,16 @@ package database
 import (
 	"database/sql"
 	"log"
+	"server/server/env"
 )
 
 var (
-	dataSourceName = user + ":" + password + "@tcp(" + address + ":" + port + ")/" + database
+	dataSourceName = env.User + ":" + env.Password + "@tcp(" + env.DatabaseAddress + ":" + env.DatabasePort + ")/" + env.DatabaseName
 )
 
 func DatabaseConnection() sql.DB {
 	// Capture connection properties.
-	db, err := sql.Open(driverName, dataSourceName)
+	db, err := sql.Open(env.DriverName, dataSourceName)
 
 	// if there is an error opening the connection, handle it
 	if err != nil {

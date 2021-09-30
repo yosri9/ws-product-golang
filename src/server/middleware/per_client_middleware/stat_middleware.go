@@ -1,4 +1,4 @@
-package middleware
+package per_client_middleware
 
 import (
 	"context"
@@ -14,7 +14,7 @@ func StatMiddleware() (http.HandlerFunc, *httplimit.Middleware) {
 
 	// key is the unique value upon which you want to rate limit, like an IP or
 	// MAC address.
-	key := "127.0.0.1"
+	key := "192.168.1.11"
 	tokens, remaining, reset, ok, err := store.Take(ctx, key)
 
 	// tokens is the configured tokens (15 in this example).

@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"net/http"
 	"server/server/database/query"
+	"server/server/middleware/global_middleware"
 )
 
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
+	go global_middleware.GlobalMiddleware()
 	w.Header().Set("Content-Type", "application/json")
 
 	// post all counter in json form

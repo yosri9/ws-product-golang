@@ -24,35 +24,28 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	case "sports":
 		model.SportCounter.Time = time
 		model.CurrentCounter = &(model.SportCounter)
-		process.ProcessView(&(model.SportCounter), data, key)
-		controller.AppendToCountersList(model.CurrentCounter)
-		fmt.Fprint(w, string(key), string(value))
+		view(data, key, value, w)
 
 	case "entertainment":
 		model.EntertainmentCounter.Time = time
 		model.CurrentCounter = &(model.EntertainmentCounter)
-		process.ProcessView(&model.EntertainmentCounter, data, key)
-		controller.AppendToCountersList(model.CurrentCounter)
-		fmt.Fprint(w, string(key), string(value))
+		view(data, key, value, w)
 
 	case "business":
 		model.BusinessCounter.Time = time
 		model.CurrentCounter = &(model.BusinessCounter)
-		process.ProcessView(&(model.BusinessCounter), data, key)
-		controller.AppendToCountersList(model.CurrentCounter)
-		fmt.Fprint(w, string(key), string(value))
+		view(data, key, value, w)
 
 	case "education":
 		model.EducationCounter.Time = time
 		model.CurrentCounter = &(model.EducationCounter)
-		controller.AppendToCountersList(model.CurrentCounter)
-		process.ProcessView(&(model.EducationCounter), data, key)
-		fmt.Fprint(w, string(key), string(value))
+		view(data, key, value, w)
+
 	}
 
 	// simulate random click call
 	if rand.Intn(100) < 50 {
-		process.ProcessClick(model.CurrentCounter, data)
+		process.ProcessClick(model.CurrentCounter)
 	}
 
 	err := process.ProcessRequest(r)
@@ -62,4 +55,10 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+}
+
+func view(data string, key string, value string, w http.ResponseWriter) {
+	go process.ProcessView(model.CurrentCounter, data, key)
+	go controller.AppendToCountersList(model.CurrentCounter)
+	fmt.Fprint(w, key, value)
 }

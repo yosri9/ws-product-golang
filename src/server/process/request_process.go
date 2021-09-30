@@ -6,8 +6,6 @@ import (
 	"time"
 )
 
-var ()
-
 func ProcessRequest(r *http.Request) error {
 	time.Sleep(time.Duration(rand.Int31n(50)) * time.Millisecond)
 	return nil
