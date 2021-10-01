@@ -16,7 +16,7 @@ configuration:
     middleware/per_client_middleware/store_config.go file 
     and  change statTokens ,statInterval       
 
-4- you can type: "go mod init server" in the terminal with path src/server 
+4- you can type: "go mod init server" in the terminal with the path ws-product-golang/src 
     to import packages and then type  go mod tidy
 
 
